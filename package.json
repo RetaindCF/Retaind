@@ -11,9 +11,21 @@
     "url": "git+https://github.com/RetaindCF/Retaind.git"
   },
   "keywords": [
-    "Memory"
+    "Memory",
+    "Retention",
+    "Retaind",
+    "REST",
+    "CRUD",
+    "node",
+    "HTTP"
   ],
   "author": "eluetkehans@gmail.com",
+  "contributors": [
+    {
+      "name": "David Sheffield",
+      "email": "david.sheffield21@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/RetaindCF/Retaind/issues"
@@ -24,7 +36,11 @@
     "body-parser": "^1.14.0",
     "eat": "^0.1.1",
     "express": "^4.13.3",
-    "mongoose": "^4.1.7"
+    "mongoose": "^4.1.7",
+    "passport": "^0.3.0"
+  },
+  "engines": {
+    "node": ">= 0.10"
   },
   "devDependencies": {
     "chai": "^3.2.0",
