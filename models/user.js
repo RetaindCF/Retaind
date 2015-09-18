@@ -8,8 +8,7 @@ var userSchema = new mongoose.userSchema({
     basic: {
         username: String,
         password: String,
-        admin: Boolean,
-        loggedIn: Boolean
+        admin: Boolean
     },
     // we'll want to set the default for reminder to false
     reminder: {
