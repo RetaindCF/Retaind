@@ -7,6 +7,16 @@ var jsonParser = require('body-parser').json();
 var app = express();
 var path = require('path');
 
+signinRoute.get('/login/facebook',
+                passport.authenticate('facebook', {scope: 'email'}));
+
+signinRoute.get('/login/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/user_splash.html', 
+    failureRedirect: '/signup'
+  })
+);
+
 signinRoute.get('/', function(req, res){
   console.log("you got something");
   res.sendFile(path.join(__dirname + '/../lib/index.html'));
