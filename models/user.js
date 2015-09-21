@@ -41,4 +41,4 @@ userSchema.methods.generateToken = function(password, callback){
  // logic to generate tokens
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('users', userSchema);
