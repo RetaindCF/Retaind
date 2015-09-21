@@ -6,13 +6,13 @@ var passport = require('passport');
 var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    displayName: profile.displayName,
+    displayName: String,
     email: String,
-    username: profile.id,
+    /* username: profile.id,
     provider: profile.provider,
     providerIdentifierField: 'id',
     providerData: providerData,
-    admin: Boolean,
+    admin: Boolean, */
     fb: {
         id: Number,
         accessToken: Number,
