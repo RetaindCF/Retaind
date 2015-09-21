@@ -27,8 +27,8 @@ signinRoute.get('/index.html', function(req, res){
   res.sendFile(path.join(__dirname + '/../lib/index.html'));
 });
 
-signinRoute.get('/account.html', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
+signinRoute.get('/user_splash.html', ensureAuthenticated, function(req, res){
+  res.render('user_splash', { user: req.user });
 });
 
 signinRoute.get('/login.html', function(req, res){
