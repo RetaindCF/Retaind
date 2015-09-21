@@ -25,11 +25,30 @@ passport.use(new FacebookStrategy({
     enableProof: false
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return done(err, user);
+    process.nextTick(function() {
+      User.findOne({'fb.id': profile.id}, function(err, user) {
+        if (err) return done(err);
+
+        if (user) {
+          return done(null, user);
+        }
+
+        var newUser = new User();
+
+        newUser.fb.id = profile.id;
+        newUser.fb.accessToken = accessToken;
+        newUser.fb.firstName = profile.name.givenName;
+        newUser.fb.lastName = profile.name.familyName;
+        newUser.fb.email = profile.emails[0].value;
+
+        newUser.save(function(err) {
+          if (err) return err;
+
+          return done(null, newUser);
+        });
+      });      
     });
-  }
-));
+  }));
 app.listen(port, function() {
   console.log('server up on port: ' + port);
 });
