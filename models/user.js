@@ -4,18 +4,21 @@ var passport = require('passport');
 // var somethingElse = require('somethingElse');
 
 var userSchema = new mongoose.Schema({
-    username: String,
+    firstName: String,
+    lastName: String,
+    displayName: profile.displayName,
+    email: String,
+    username: profile.id,
+    provider: profile.provider,
+    providerIdentifierField: 'id',
+    providerData: providerData,
+    admin: Boolean,
     fb: {
         id: Number,
         accessToken: Number,
         firstName: String,
         lastName: String,
         email: String
-    },
-    basic: {
-        username: String,
-        password: String,
-        admin: Boolean
     },
     // we'll want to set the default for reminder to false
     reminder: {
