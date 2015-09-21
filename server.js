@@ -6,6 +6,7 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook');
 app.use(passport.initialize());
 app.use(passport.session());
+var jsonParser = require('body-parser').json();
 
 mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/db');
 var port = process.env.PORT || 3000; //set to 3000 for now.
@@ -14,8 +15,8 @@ var fbID = process.env.FACEBOOK_APP_ID;
 var fbSecret = process.env.FACEBOOK_APP_SECRET;
 
 //TODO: make signin-routes a real boy
-/*var signInRouter = require('/routes/signin-routes');
-app.use('/signin', signInRouter); */
+var signInRouter = require(__dirname + '/routes/signin_routes');
+app.use(signInRouter); //universal for now
 
 passport.use(new FacebookStrategy({
     clientID: fbID,
