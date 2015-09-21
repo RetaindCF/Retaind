@@ -3,7 +3,7 @@ var passport = require('passport');
 // var something = require('something');
 // var somethingElse = require('somethingElse');
 
-var userSchema = new mongoose.userSchema({
+var userSchema = new mongoose.Schema({
     username: String,
     basic: {
         username: String,
