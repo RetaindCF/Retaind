@@ -21,7 +21,7 @@ app.use(signInRouter); //universal for now
 passport.use(new FacebookStrategy({
     clientID: fbID,
     clientSecret: fbSecret,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL:  '/index.html',
     enableProof: false
   },
   function(accessToken, refreshToken, profile, done) {
