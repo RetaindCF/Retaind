@@ -8,7 +8,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 var jsonParser = require('body-parser').json();
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/db');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/db');
 var port = process.env.PORT || 3000; //set to 3000 for now.
 
 var fbID = process.env.FACEBOOK_APP_ID;
