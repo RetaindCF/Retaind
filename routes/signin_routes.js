@@ -12,7 +12,7 @@ signinRoute.get('/login/facebook',
 
 signinRoute.get('/login/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect: '/user_splash.html', 
+    successRedirect: '/user_splash.html',
     failureRedirect: '/signup'
   })
 );
