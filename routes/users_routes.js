@@ -6,7 +6,7 @@ var httpBasic = require(__dirname + '/../lib/http_basic');
 
 var usersRouter = module.exports = exports = express.Router();
 
-var EventEmitter = require('events');
+var EventEmitter = require('events').EventEmitter;
 var ee = new EventEmitter();
 
 usersRouter.post('/signup', jsonParser, function(req, res) {
