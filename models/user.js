@@ -1,45 +1,37 @@
 var mongoose = require('mongoose');
-var passport = require('passport');
-// var something = require('something');
-// var somethingElse = require('somethingElse');
+var eat = require('eat');
+var bcrypt = require('bcrypt');
 
 var userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    displayName: String,
-    email: String,
-    fbId: Number,
-    /* username: profile.id,
-    provider: profile.provider,
-    providerIdentifierField: 'id',
-    providerData: providerData,
-    admin: Boolean, */
-    fb: {
-        id: Number,
-        accessToken: Number,
-        firstName: String,
-        lastName: String,
-        email: String
-    },
-    // we'll want to set the default for reminder to false
-    reminder: {
-        ambition: Boolean,
-        student: Boolean,
-        business: Boolean,
-        personal: Boolean
-    }
+  username: {type: String, unique: true},
+  basic: {
+    username: {type: String, unique: true},
+    password: String
+  }
 });
 
-userSchema.methods.generateHash = function(password, callback){
-  // add method to generate hash
+userSchema.methods.generateHash = function(password, callback) {
+  // creates a hash of the password, salts it eight times. You don't
+  // want to salt less than 6-8 times. More salting means harder to crack,
+  // but slower to run.
+  bcrypt.hash(password, 8, function(err, hash) {
+    if (err) return callback(err);
+    this.basic.password = hash;
+    callback(null, hash);
+  }.bind(this));
 };
 
-userSchema.methods.comparePword = function(password, callback){
-  // logic to compare password auth
+userSchema.methods.compareHash = function(password, callback) {
+  // compaires the hashed password in the database against the
+  // hashed password from the req header
+  bcrypt.compare(password, this.basic.password, callback);
 };
 
-userSchema.methods.generateToken = function(password, callback){
- // logic to generate tokens
+userSchema.methods.generateToken = function(callback) {
+  // make a token that we know was made on our machine, because it uses
+  // the machine specific APP_SECRET enviromental veriable that we set
+  // from console.
+  eat.encode({id: this._id}, process.env.APP_SECRET, callback);
 };
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);
