@@ -3,13 +3,20 @@ var User = require(__dirname + '/../models/user');
 var jsonParser = require('body-parser').json();
 var handleError = require(__dirname + '/../lib/handel_error');
 var httpBasic = require(__dirname + '/../lib/http_basic');
+var app = express();
+var path = require('path');
 
 var usersRouter = module.exports = exports = express.Router();
 
 var EventEmitter = require('events');
 var ee = new EventEmitter();
 
-usersRouter.post('/signup', jsonParser, function(req, res) {
+usersRouter.get('/login', function(req, res) {
+  res.sendFile(path.join(__dirname + '/../public/login.html'));
+});
+
+usersRouter.post('/login', jsonParser, function(req, res) {
+  console.log(req);
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;
