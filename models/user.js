@@ -13,7 +13,7 @@ var pInfoSchema = new mongoose.Schema({
 
 var ambitionsSchema = new mongoose.Schema({
     ambition: String,
-    dueDate: String,
+    dueDate: String
 });
 
 var LDRSchema = new mongoose.Schema({
