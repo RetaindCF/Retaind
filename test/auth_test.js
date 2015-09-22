@@ -35,10 +35,11 @@ describe('auth', function() {
   });
 
   it('should be able to create a user', function(done) {
-    chai.request('localhost:' + port + '/api')
+    chai.request('localhost:' + port)
       .post('/login')
       .send({username: 'testuser', password: 'foobar123'})
       .end(function(err, res) {
+        console.log(res.body);
         expect(err).to.eql(null);
         expect(res.body.token).to.have.length.above(0);
         done();
