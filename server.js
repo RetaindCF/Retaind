@@ -15,6 +15,7 @@ process.env.APP_SECRET = process.env.APP_SECRET || 'setupanappsecretplease';
 var usersRouter = require(__dirname + '/routes/users_routes');
 app.use('/', express.static(__dirname + '/public'));
 
+app.use('/api', usersRouter);
 
 app.listen(port, function() {
   console.log('server up on port: ' + port);
