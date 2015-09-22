@@ -19,12 +19,12 @@ signinRoute.get('/login/facebook/callback',
 
 signinRoute.get('/', function(req, res){
   console.log("you got something");
-  res.sendFile(path.join(__dirname + '/../lib/index.html'));
+  res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
 signinRoute.get('/index.html', function(req, res){
   console.log("you got something");
-  res.sendFile(path.join(__dirname + '/../lib/index.html'));
+  res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
 signinRoute.get('/user_splash.html', ensureAuthenticated, function(req, res){
@@ -33,12 +33,12 @@ signinRoute.get('/user_splash.html', ensureAuthenticated, function(req, res){
 
 signinRoute.get('/login.html', function(req, res){
   console.log("you got login");
-  res.sendFile(path.join(__dirname + '/../lib/login.html'));
+  res.sendFile(path.join(__dirname + '/../public/login.html'));
 });
 
 signinRoute.get('/signup.html', function(req, res){
   console.log("you got signup");
-  res.sendFile(path.join(__dirname + '/../lib/signup.html'));
+  res.sendFile(path.join(__dirname + '/../public/signup.html'));
 });
 
 // GET /auth/facebook
