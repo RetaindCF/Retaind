@@ -6,6 +6,7 @@ var signinRoute = module.exports = exports = express.Router();
 var jsonParser = require('body-parser').json();
 var app = express();
 var path = require('path');
+var dashboard = require(__dirname + "/../lib/dashboard");
 
 signinRoute.get('/login/facebook',
                 passport.authenticate('facebook', {scope: 'email'}));
@@ -13,7 +14,7 @@ signinRoute.get('/login/facebook',
 signinRoute.get('/login/facebook/callback',
   passport.authenticate('facebook', {
     successRedirect: '/user_splash.html',
-    failureRedirect: '/signup'
+    failureRedirect: '/failure.html'
   })
 );
 
@@ -28,7 +29,7 @@ signinRoute.get('/index.html', function(req, res){
 });
 
 signinRoute.get('/user_splash.html', ensureAuthenticated, function(req, res){
-  res.render('user_splash', { user: req.user });
+  dashboard(req, res);
 });
 
 signinRoute.get('/login.html', function(req, res){
@@ -77,5 +78,5 @@ signinRoute.get('/auth/facebook/callback',
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/login');
 }
