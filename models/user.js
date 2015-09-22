@@ -8,6 +8,7 @@ var userSchema = new mongoose.Schema({
     lastName: String,
     displayName: String,
     email: String,
+    fbId: Number,
     /* username: profile.id,
     provider: profile.provider,
     providerIdentifierField: 'id',
@@ -41,4 +42,4 @@ userSchema.methods.generateToken = function(password, callback){
  // logic to generate tokens
 };
 
-module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('user', userSchema);
