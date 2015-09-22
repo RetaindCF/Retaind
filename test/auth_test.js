@@ -35,8 +35,8 @@ describe('auth', function() {
   });
 
   it('should be able to create a user', function(done) {
-    chai.request('localhost:' + port + '/api')
-      .post('/login')
+    chai.request('localhost:' + port)
+      .post('/api/login')
       .send({username: 'testuser', password: 'foobar123'})
       .end(function(err, res) {
         expect(err).to.eql(null);
