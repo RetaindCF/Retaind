@@ -11,12 +11,9 @@ var usersRouter = module.exports = exports = express.Router();
 var EventEmitter = require('events');
 var ee = new EventEmitter();
 
-usersRouter.get('/login', function(req, res) {
-  res.sendFile(path.join(__dirname + '/../public/login.html'));
-});
 
 usersRouter.post('/login', jsonParser, function(req, res) {
-  console.log(req);
+  console.log('this is the req body', req.body);
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;
