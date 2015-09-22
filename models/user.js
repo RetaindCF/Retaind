@@ -19,7 +19,7 @@ var ambitionsSchema = new mongoose.Schema({
 var LDRSchema = new moongose.Schema({
     relType: String,
     conFreq: String
-
+});
 
 var userSchema = new mongoose.Schema({
    username: {type: String, unique: true},
