@@ -2,7 +2,6 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-
 var jsonParser = require('body-parser').json();
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
