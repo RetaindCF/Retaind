@@ -1,34 +1,34 @@
 var mongoose = require('mongoose');
-var passport = require('passport');
 // var something = require('something');
 // var somethingElse = require('somethingElse');
 
-var userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    displayName: String,
+var basicInfoSchema = new mongoose.Schema({
+    fullName: String,
     email: String,
-    fbId: Number,
-    /* username: profile.id,
-    provider: profile.provider,
-    providerIdentifierField: 'id',
-    providerData: providerData,
-    admin: Boolean, */
-    fb: {
-        id: Number,
-        accessToken: Number,
-        firstName: String,
-        lastName: String,
-        email: String
-    },
-    // we'll want to set the default for reminder to false
-    reminder: {
-        ambition: Boolean,
-        student: Boolean,
-        business: Boolean,
-        personal: Boolean
-    }
+    phone: String,
+    location: String,
+    timezone: String,
+    currentLogin: String
 });
+
+var ambitionsSchema = new mongoose.Schema({
+    ambition: String,
+    dueDate: String
+});
+
+var LDRSchema = new moongose.Schema({
+    relType: String,
+    conFreq: String
+});
+var userSchema = new mongoose.Schema({
+    basicInfo: [basicInfoSchema],
+    ambitions: [ambitionsSchema],
+    LDR: [LDRSchema]
+    //calendar:
+
+});
+
+//userSchema.ambitions.push({ambition: "Go to the moon", dueDate: "tomorrow"});
 
 userSchema.methods.generateHash = function(password, callback){
   // add method to generate hash
@@ -42,4 +42,4 @@ userSchema.methods.generateToken = function(password, callback){
  // logic to generate tokens
 };
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);
