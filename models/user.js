@@ -6,13 +6,14 @@ var passport = require('passport');
 var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    displayName: profile.displayName,
+    displayName: String,
     email: String,
-    username: profile.id,
+    fbId: Number,
+    /* username: profile.id,
     provider: profile.provider,
     providerIdentifierField: 'id',
     providerData: providerData,
-    admin: Boolean,
+    admin: Boolean, */
     fb: {
         id: Number,
         accessToken: Number,
@@ -41,4 +42,4 @@ userSchema.methods.generateToken = function(password, callback){
  // logic to generate tokens
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);

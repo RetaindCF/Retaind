@@ -8,14 +8,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 var jsonParser = require('body-parser').json();
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/db');
-var port = process.env.PORT || 3000; //set to 3000 for now.
 
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
+var port = process.env.PORT || 3000; //set to 3000 for now.
 
 //TODO: make signin-routes a real boy
 var signInRouter = require(__dirname + '/routes/signin_routes');
 app.use(signInRouter); //universal for now
-
 
 // Needed to support auth sessions with Facebook
 passport.serializeUser(function(user, done) {
