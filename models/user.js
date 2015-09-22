@@ -16,7 +16,7 @@ var ambitionsSchema = new mongoose.Schema({
     dueDate: String
 });
 
-var LDRSchema = new moongose.Schema({
+var LDRSchema = new mongoose.Schema({
     relType: String,
     conFreq: String
 });
