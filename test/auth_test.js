@@ -58,13 +58,13 @@ describe('auth', function() {
             this.token = token;
             done();
           }.bind(this));
-        }.bind(this)); 
+        }.bind(this));
       }.bind(this));
     });
 
     it('should be able to sign in', function(done) {
-      chai.request('localhost:' + port +'/api')
-        .get('/signin')
+      chai.request('localhost:' + port)
+        .get('/api/signin')
         .auth('test', 'foobar123')
         .end(function(err, res) {
           expect(err).to.eql(null);
