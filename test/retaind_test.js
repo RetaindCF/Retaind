@@ -87,5 +87,27 @@ describe('Retaind Routes', function() {
           });
         });
     });
+
+    it('should be able to store a long distance relationship', function(done) {
+      
+      var token = this.token;
+      var longJson = {LDR: {
+        relType: 'freind',
+        conFreq: 'weekly'
+      }};
+      
+      chai.request("localhost:" + port)
+        .post('/api/LDR')
+        .set('token', token)
+        .send(longJson)
+        .end(function(req, res) {
+          
+          User.findOne({username: 'ptest'}, function(err, user) {
+            expect(user.LDR[0].relType).to.eql('freind');
+            expect(user.LDR[0].conFreq).to.eql('weekly');
+            done();
+          });
+        });
+    });
   });
 });
