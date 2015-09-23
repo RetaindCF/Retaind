@@ -38,6 +38,7 @@
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.0",
+    "datejs": "0.0.2",
     "eat": "^0.1.1",
     "express": "^4.13.3",
     "mongodb": "^2.0.43",
