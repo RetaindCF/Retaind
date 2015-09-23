@@ -41,6 +41,7 @@
     "datejs": "0.0.2",
     "eat": "^0.1.1",
     "express": "^4.13.3",
+    "mailgun-js": "^0.7.1",
     "mongodb": "^2.0.43",
     "mongoose": "^4.1.7"
   },
