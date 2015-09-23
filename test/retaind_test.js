@@ -9,7 +9,7 @@ var User = require(__dirname + '/../models/user');
 
 require(__dirname + "/../server.js");
 
-describe('Retaind Routes', function() {
+describe('CRUD: create', function() {
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
@@ -109,5 +109,6 @@ describe('Retaind Routes', function() {
           });
         });
     });
+    
   });
 });
