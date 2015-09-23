@@ -17,3 +17,7 @@ retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
   return res.end();
 });
 
+retaindRoute.put('/change_remindr', jsonParser, function(req, res) {
+  console.log(req.body);
+})
+
