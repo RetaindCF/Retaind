@@ -17,6 +17,24 @@ retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
   return res.end();
 });
 
+retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
+  User.findOneAndUpdate({ username: req.user.username },
+  { $push: {ambitions: req.body.ambitions}},
+  function(err, doc) {
+    if (err) handleError(err);
+  });
+  return res.end();
+});
+
+retaindRoute.post('/LDR', jsonParser, eatAuth, function(req, res) {
+  User.findOneAndUpdate({ username: req.user.username },
+  { $push: {LDR: req.body.LDR}},
+  function(err, doc) {
+    if (err) handleError(err);
+  });
+  return res.end();
+});
+
 retaindRoute.put('/change_remindr', jsonParser, function(req, res) {
   console.log(req.body);
 })
