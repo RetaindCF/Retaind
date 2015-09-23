@@ -5,11 +5,10 @@ var handleError = require(__dirname + '/../lib/handle_error');
 var httpBasic = require(__dirname + '/../lib/http_basic');
 var app = express();
 var path = require('path');
-
 var usersRouter = module.exports = exports = express.Router();
-
 var EventEmitter = require('events');
 var ee = new EventEmitter();
+var mailGun = require(__dirname + '/../mailgun'); //TODO: decide what dir it goes in.
 
 
 usersRouter.post('/login', jsonParser, function(req, res) {
@@ -27,6 +26,7 @@ ee.on('generateHash', function(res, err, newUser) {
   newUser.save(function(err, data) {
     newUser.generateToken(function(err, token) {
       if (err) return handleError(err, res);
+      mailGun.newAccount(newUser);
       res.json({token: token});
     });
   });
