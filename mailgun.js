@@ -12,7 +12,7 @@ function newAccount (userData){
     text: 'Hey buddy, someone made a new Remindr account with your email. Was it you?' 
   };
   mailgun.messages().send(data, function (error, body) {
-    console.log(body);
+    //console.log(body);
   });
 }
 
@@ -24,7 +24,7 @@ function newNotification (userData){
     text: 'Check your Remindr account for a new notification!'
   };
   mailgun.messages().send(data, function (error, body) {
-    console.log(body);
+    //console.log(body);
   });
 }
 
