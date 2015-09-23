@@ -1,37 +1,40 @@
 var expect = require('chai').expect;
 var time = require(__dirname + '/../lib/time');
-require('datejs');
-
 
 describe('time', function() {
   var today;
   beforeEach(function(done){
-    today = Date.today();
+    today = new Date()
     done();
   });
 
   it('should increment time by 1 day', function() {
-    expect(time.plusDay().day().toString()).to.not.eql(today.day().toString());
-    expect(time.plusDay().day().toString()).to.eql(today.add(1).day().toString());
+    var test = time.plusDay();
+    today.setDate(today.getDate() + 1);
+    expect(test.toString()).to.eql(today.toString());
   });
 
   it('should increment time by 1 week', function() {
-    expect(time.plusWeek().day().toString()).to.not.eql(today.day().toString());
-    expect(time.plusWeek().day().toString()).to.eql((today.add(7)).day().toString());
+    var test = time.plusWeek().toString();
+    today.setDate(today.getDate() + 7);
+    expect(test.toString()).to.eql(today.toString());
   });
 
   it('should increment time by 1 month', function() {
-    expect(time.plusMonth().day().toString()).to.not.eql(today.day().toString());
-    expect(time.plusMonth().day().toString()).to.eql((today.add(30)).day().toString());
+    var test = time.plusMonth().toString();
+    today.setMonth(today.getMonth() + 1);
+    expect(test.toString()).to.eql(today.toString());
   });
 
   it('should increment time by 3 months', function() {
-    expect(time.plusQtr().day().toString()).to.not.eql(today.day().toString());
-    expect(time.plusQtr().day().toString()).to.eql((today.add(90)).day().toString());
+    var test = time.plusQtr().toString();
+    today.setMonth(today.getMonth() + 3);
+    expect(test.toString()).to.eql(today.toString());
   });
 
   it('should increment time by 1 year', function() {
-    expect(time.plusYear().day().toString()).to.not.eql(today.day().toString());
-    expect(time.plusYear().day().toString()).to.eql((today.add(365)).day().toString());
+    var test = time.plusYear().toString();
+    today.setYear(today.getYear() + 1);
+    expect(test.toString()).to.eql(today.toString());
   });
 });
