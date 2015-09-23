@@ -65,5 +65,27 @@ describe('Retaind Routes', function() {
           });
         });
     });
+
+    it('should be able to store an ambition', function(done) {
+      
+      var token = this.token;
+      var ambitionJson = {ambitions: {
+        ambition: 'learn guitar',
+        dueDate: 'dueDate'
+      }};
+      
+      chai.request("localhost:" + port)
+        .post('/api/ambition')
+        .set('token', token)
+        .send(ambitionJson)
+        .end(function(req, res) {
+          
+          User.findOne({username: 'ptest'}, function(err, user) {
+            expect(user.ambitions[0].ambition).to.eql('learn guitar');
+            expect(user.ambitions[0].dueDate).to.eql('dueDate');
+            done();
+          });
+        });
+    });
   });
 });

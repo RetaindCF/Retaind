@@ -17,3 +17,11 @@ retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
   return res.end();
 });
 
+retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
+  User.findOneAndUpdate({ username: req.user.username },
+  { $push: {ambitions: req.body.ambitions}},
+  function(err, doc) {
+    if (err) handleError(err);
+  });
+  return res.end();
+});
