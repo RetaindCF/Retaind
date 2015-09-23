@@ -22,7 +22,7 @@ var LDRSchema = new mongoose.Schema({
 });
 
 var userSchema = new mongoose.Schema({
-   username: {type: String, unique: true},
+    username: {type: String, unique: true},
     basic: {
     username: {type: String, unique: true},
     password: String
