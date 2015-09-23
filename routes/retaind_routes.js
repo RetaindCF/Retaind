@@ -4,6 +4,7 @@ var User = require(__dirname + '/../models/user');
 var retaindRoute = module.exports = exports = express.Router();
 var jsonParser = require('body-parser').json();
 var handleError = require(__dirname + '/../lib/handle_error');
+var addToDb = require(__dirname + '/../lib/add_to_db');
 
 
 // Accepts a JSON object like: {pInfo: {fullName: 'Bert Mert',email: 'b.mert@pert.com',phone: '3603603600',location: 'Seattle, WA',timezone: 'PST (UTC−08:00)',currentLogin: 'the token?'}}
@@ -14,6 +15,11 @@ retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
   function(err, doc) {
     if (err) handleError(err);
   });
+  return res.end();
+});
+
+retaindRoute.delete('/removeUser', jsonParser, eatAuth, function(req, res) {
+  User.findOneAndRemove({ username: req.user.username});
   return res.end();
 });
 
@@ -37,5 +43,10 @@ retaindRoute.post('/LDR', jsonParser, eatAuth, function(req, res) {
 
 retaindRoute.put('/change_remindr', jsonParser, function(req, res) {
   console.log(req.body);
-})
+});
 
+retaindRoute.get('/user_info', jsonParser, eatAuth, function(req, res) {
+  User.findOne( {username: req.user.username}, function(doc) {
+    res.json(doc);
+  });
+});
