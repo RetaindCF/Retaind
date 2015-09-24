@@ -11,4 +11,4 @@ services:
   - mongodb
 
 before_script:
-  - sleep 15
+  - travis_retry "sleep 15"
