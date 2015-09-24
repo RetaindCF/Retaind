@@ -5,6 +5,7 @@ var retaindRoute = module.exports = exports = express.Router();
 var jsonParser = require('body-parser').json();
 var handleError = require(__dirname + '/../lib/handle_error');
 var addToDb = require(__dirname + '/../lib/add_to_db');
+var time = require(__dirname + '/../lib/time');
 
 
 // Accepts a JSON object like: {pInfo: {fullName: 'Bert Mert',email: 'b.mert@pert.com',phone: '3603603600',location: 'Seattle, WA',timezone: 'PST (UTC−08:00)',currentLogin: 'the token?'}}
@@ -26,22 +27,32 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
 });
 
 retaindRoute.post('/remove-user', jsonParser, eatAuth, function(req, res) {
-  
   User.find({ username: req.user.username }).remove().exec();
   console.log(req.user.username);
   return res.end();
 });
 
 retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
+  var dueDate = time.plusWeek();
+  var input = {ambition: req.body.ambitions, dueDate: dueDate};
+  debugger;
   User.findOneAndUpdate({ username: req.user.username },
-  { $push: {ambitions: req.body.ambitions}},
+  { $push: {ambitions: input}},
   function(err, doc) {
     if (err) handleError(err);
+    debugger;
   });
   return res.end();
 });
 
 retaindRoute.get('/ambition', jsonParser, eatAuth, function(req, res) {
+  User.findOne({ username: req.user.username }, function(err, doc) {
+    if (err) handleError(err);
+    res.json(doc.ambitions);
+  });
+});
+
+retaindRoute.post('/dashload', jsonParser, eatAuth, function(req, res) {
   User.findOne({ username: req.user.username }, function(err, doc) {
     if (err) handleError(err);
     res.json(doc.ambitions);

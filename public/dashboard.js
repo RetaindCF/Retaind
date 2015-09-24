@@ -1,20 +1,25 @@
 $(document).ready(function(){
- var userLocalToken = localStorage.getItem("token");
+ var userLocalToken = localStorage.getItem("token")
  console.log(userLocalToken);
+ var token = JSON.parse(userLocalToken).token;
+ console.log("parsed token", token);
   var dItems = [];
+  var userLocalName = localStorage.getItem("username");
+  var username = JSON.parse(userLocalName).username;
   //var u = JSON.stringify({token: userLocalToken});
-$.ajax({
-          type: "POST",
-          url : "/api/user_token",
-          data: userLocalToken,
-          contentType: "application/json; charset=utf-8",
-          dataType   : "json",
-          success    : function(data){
-            console.log("data", data);
-            //console.log(data.toObject());
-            console.log("data recieved");
-          }
-      });
+  var getAmb = JSON.stringify({username: username, token: token});
+  var curAmbs;
+  $.ajax({
+    type: "POST",
+    url : "/api/dashload",
+    data: getAmb,
+    contentType: "application/json; charset=utf-8",
+    dataType   : "json",
+    success    : function(data){
+      console.log("data", data);
+      curAmbs = data;
+    }
+  });
 
   $("<button>").addClass("newremind").text("new reminder").appendTo("body");
 
@@ -25,18 +30,15 @@ $.ajax({
     $("<form>").addClass("remindform").attr('method', 'PUT').appendTo(".box:last");
     $(".remindform:last").append('activity: <input type="text" class="activity">')
     $(".remindform:last").append("<br>");
-    $(".remindform:last").append('progress: <input type="text" class="progress">');
     $(".remindform:last").append("<br>");
     $(".remindform:last").append('<input type="submit" value="Submit Changes">');
     $(".remindform:last").append('<p class="lastlogin"></p>');
     $(".activity").attr('disabled', true);
-    $(".progress").attr('disabled', true);
     editUpdate();
     boxSubmitUpdate();
   })
 
   $(".activity").attr('disabled', true);
-  $(".progress").attr('disabled', true);
   $("<button>").addClass("cancel").text("cancel").prependTo("#box1");
   $(".cancel").hide();
 
@@ -44,16 +46,13 @@ function editUpdate() {
   $(".editremind").on("click", function(e){
     e.preventDefault();
     $(".activity").attr('disabled', false);
-    $(".progress").attr('disabled', false);
     $(".editreminder").toggle();
     $(".cancel").toggle();
   })
 
   $(".cancel").on("click", function(){
     $(".activity").val("");
-    $(".progress").val("");
     $(".activity").attr('disabled', true);
-    $(".progress").attr('disabled', true);
     $(this).toggle();
     $(".editreminder").toggle();
   })
@@ -64,14 +63,12 @@ function editUpdate() {
       $(".lastlogin").text("last checkin: " + new Date().toString())
       e.preventDefault();
       var activity = $(".activity").val();
-      var progress = $(".progress").val();
       $(".activity").attr('disabled', true);
-      $(".progress").attr('disabled', true);
-      var j = JSON.stringify({activity: activity, progress: progress });
+      var j = JSON.stringify({username: username, token: token, ambitions: activity});
       //console.log(j);
       $.ajax({
-          type: "PUT",
-          url : "/api/change_remindr",
+          type: "POST",
+          url : "/api/ambition",
           data: j,
           contentType: "application/json; charset=utf-8",
           dataType   : "json",
