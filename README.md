@@ -34,7 +34,6 @@ We are using the following external resources, as shown in our package.JSON:
 + [Mongoose.js](http://mongoosejs.com/) by LearnBoost
 + [Node.js](https://nodejs.org/en/) by Joyent
 
-
 -------------------------------------------
 
 #Contributors
