@@ -28,7 +28,10 @@ usersRouter.post('/token', jsonParser, function(req,res) {
 });
 
 usersRouter.post('/login', jsonParser, function(req, res) {
-  //console.log('this is the req body', req.body);
+  if(req.body.token){
+    //res.end();
+    return res.redirect("/dashboard.html");
+  }
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;
@@ -43,7 +46,7 @@ ee.on('generateHash', function(res, err, newUser) {
     newUser.generateToken(function(err, token) {
       if (err) return handleError(err, res);
       mailGun.newAccount(newUser);
-      res.json({token: token});
+      res.json({token: token, tokenid: token._id});
     });
   });
 });
