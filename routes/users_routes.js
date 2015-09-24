@@ -11,8 +11,24 @@ var ee = new EventEmitter();
 var mailGun = require(__dirname + '/../mailgun'); //TODO: decide what dir it goes in.
 
 
+usersRouter.post('/user_token', jsonParser, function(req,res) {
+  console.log(req.body);
+ /*User.findOne({}, function(err, doc){
+    //console.log(doc);
+   }); */
+ res.end();
+});
+
+usersRouter.post('/token', jsonParser, function(req,res) {
+  console.log(req.body);
+  User.findOne({"basic.username": req.body.username}, function(err, obj) {
+    console.log(obj);
+    res.json(obj);
+  })
+});
+
 usersRouter.post('/login', jsonParser, function(req, res) {
-  console.log('this is the req body', req.body);
+  //console.log('this is the req body', req.body);
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;

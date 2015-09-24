@@ -1,7 +1,24 @@
 $(document).ready(function(){
+ var userLocalToken = localStorage.getItem("token");
+ console.log(userLocalToken);
+  var dItems = [];
+  var u = JSON.stringify({token: userLocalToken});
+$.ajax({
+          type: "POST",
+          url : "/api/user_token",
+          data: u,
+          contentType: "application/json; charset=utf-8",
+          dataType   : "json",
+          success    : function(data){
+            console.log("data", data);
+            //console.log(data.toObject());
+            console.log("data recieved");
+          }
+      });
+
   $("<button>").addClass("newremind").text("new reminder").appendTo("body");
 
-  $(".newremind").on("click", function(){
+  $(".newremind").on("click", function() {
     $("<div>").addClass("box").appendTo("main");
     $("<button>").addClass("editremind").text("edit").appendTo(".box:last");
     $("<button>").text("cancel").addClass("cancel").appendTo(".box:last").hide();
@@ -51,7 +68,7 @@ function editUpdate() {
       $(".activity").attr('disabled', true);
       $(".progress").attr('disabled', true);
       var j = JSON.stringify({activity: activity, progress: progress });
-      console.log(j);
+      //console.log(j);
       $.ajax({
           type: "PUT",
           url : "/api/change_remindr",
@@ -64,4 +81,4 @@ function editUpdate() {
       });
     });
   }
-});
+}); //document ready end
