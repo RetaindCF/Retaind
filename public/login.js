@@ -14,13 +14,17 @@ $(document).ready(function(){
         success    : function(){
           console.log("ajax sent");
           $.ajax({
-            url : "/api/token",
+            url : "/api/login",
             type: "POST",
             data: j,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function(data){
-              console.log( data, "recieved");
+            success: function(token){
+              //console.log(token, "recieved");
+              localStorage.setItem("token", JSON.stringify(token));
+              var tok = localStorage.getItem("token");
+              console.log(tok);
+              window.location.replace("http://localhost:3000/dashboard.html");
             }
           });
         }
