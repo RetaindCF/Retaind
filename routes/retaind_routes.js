@@ -26,7 +26,7 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
 });
 
 retaindRoute.post('/remove-user', jsonParser, eatAuth, function(req, res) {
-  debugger;
+  
   User.find({ username: req.user.username }).remove().exec();
   console.log(req.user.username);
   return res.end();
