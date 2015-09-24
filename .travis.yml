@@ -10,3 +10,5 @@ env:
 services:
   - mongodb
 
+before_script:
+  - sleep 15
