@@ -8,7 +8,7 @@ var path = require('path');
 var usersRouter = module.exports = exports = express.Router();
 var EventEmitter = require('events');
 var ee = new EventEmitter();
-var mailGun = require(__dirname + '/../mailgun'); //TODO: decide what dir it goes in.
+var mailGun = require(__dirname + '/../mailgun');
 
 
 usersRouter.post('/user_token', jsonParser, function(req,res) {
