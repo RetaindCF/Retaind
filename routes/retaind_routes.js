@@ -18,8 +18,17 @@ retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
   return res.end();
 });
 
-retaindRoute.delete('/removeUser', jsonParser, eatAuth, function(req, res) {
-  User.findOneAndRemove({ username: req.user.username});
+retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
+  User.findOne({ username: req.user.username }, function(err, doc) {
+    if (err) handleError(err);
+    res.json(doc.pInfo);
+  });
+});
+
+retaindRoute.post('/remove-user', jsonParser, eatAuth, function(req, res) {
+  
+  User.find({ username: req.user.username }).remove().exec();
+  console.log(req.user.username);
   return res.end();
 });
 
@@ -32,6 +41,13 @@ retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
   return res.end();
 });
 
+retaindRoute.get('/ambition', jsonParser, eatAuth, function(req, res) {
+  User.findOne({ username: req.user.username }, function(err, doc) {
+    if (err) handleError(err);
+    res.json(doc.ambitions);
+  });
+});
+
 retaindRoute.post('/LDR', jsonParser, eatAuth, function(req, res) {
   User.findOneAndUpdate({ username: req.user.username },
   { $push: {LDR: req.body.LDR}},
@@ -39,6 +55,13 @@ retaindRoute.post('/LDR', jsonParser, eatAuth, function(req, res) {
     if (err) handleError(err);
   });
   return res.end();
+});
+
+retaindRoute.get('/LDR', jsonParser, eatAuth, function(req, res) {
+  User.findOne({ username: req.user.username }, function(err, doc) {
+    if (err) handleError(err);
+    res.json(doc.LDR);
+  });
 });
 
 retaindRoute.put('/change_remindr', jsonParser, function(req, res) {
