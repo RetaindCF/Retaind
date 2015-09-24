@@ -50,6 +50,7 @@ describe('CRUD: read', function() {
   });
 
   it('should read pInfo', function(done) {
+
     var token = this.token;
     chai.request("localhost:" + port)
         .get('/api/personal')
