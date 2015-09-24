@@ -11,4 +11,4 @@ services:
   - mongodb
 
 before_script:
-  - sleep 15
+  - sleep 30
