@@ -39,7 +39,6 @@ describe('CRUD: create', function() {
        + 'json object', function(done) {
       
       var token = this.token;
-      debugger; // token 1
       var personalJson = {pInfo: {
         fullName: 'Bert Mert',
         email: 'b.mert@pert.com',
@@ -70,11 +69,10 @@ describe('CRUD: create', function() {
     it('should be able to store an ambition', function(done) {
       
       var token = this.token;
-      debugger; // token
       var ambitionJson = {ambitions: 'learn guitar'
       };
       
-      debugger;
+      
       chai.request("localhost:" + port)
         .post('/api/ambition')
         .set('token', token)
@@ -82,7 +80,7 @@ describe('CRUD: create', function() {
         .end(function(req, res) {
           
           User.findOne({username: 'ptest'}, function(err, user) {
-            debugger;
+            
             expect(user.ambitions[0].ambition).to.eql('learn guitar');
             done();
           });

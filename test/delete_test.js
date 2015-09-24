@@ -51,7 +51,6 @@
 //           .end(function(req, res) {
 //             User.find({username: 'existtest'}, function(err, docs) {
 //               debugger;
-//               console.log(docs);
 //               expect().to.eql([]);
 //               done();
 //             });

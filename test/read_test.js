@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 process.env.MONGO_URL = 'mongodb://localhost/db';
 var port = process.env.PORT || 3000; //set to 3000 for now.
 var User = require(__dirname + '/../models/user');
-
+var dateCheck = require(__dirname + "/../lib/date_check");
 require(__dirname + "/../server.js");
 
 describe('CRUD: read', function() {
@@ -26,8 +26,7 @@ describe('CRUD: read', function() {
                       conFreq: 'weekly'
                     }];
     readUser.ambitions = [{
-                            ambition: 'learn guitar',
-                            dueDate: 'dueDate'
+                            ambition: 'learn guitar'
                           }];
     readUser.pInfo = [{
                         fullName: 'Kurt Cobain',
@@ -50,6 +49,7 @@ describe('CRUD: read', function() {
   });
 
   it('should read pInfo', function(done) {
+
     var token = this.token;
     chai.request("localhost:" + port)
         .get('/api/personal')
@@ -77,7 +77,6 @@ describe('CRUD: read', function() {
         
         User.findOne({username: 'readUser'}, function(err, user) {
           expect(user.ambitions[0].ambition).to.eql('learn guitar');
-          expect(user.ambitions[0].dueDate).to.eql('dueDate');
           done();
         });
       });
