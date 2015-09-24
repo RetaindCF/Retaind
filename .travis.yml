@@ -6,3 +6,6 @@ node_js:
 env:
   - APP_SECRET=123123123123
   - PORT=8080
+
+services:
+  - mongodb
