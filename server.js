@@ -21,6 +21,7 @@ app.use('/api', usersRouter);
 setInterval(function() {
   // Checks due date of ambitions and sends an email if they are over due
   dateCheck();
+  console.log('daily emails sent');
 }, 1000 * 60 * 60 * 24);
 
 
