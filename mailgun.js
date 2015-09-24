@@ -35,7 +35,9 @@ function ambitionDue (userData, ambition) {
     subject: 'You have a new notification!',
     text: "don't forget to " + ambition + "!"
   };
+  debugger;
   mailgun.messages().send(data, function (error, body) {
-    //console.log(body);
+    console.log(body);
+    debugger;
   });
 }
