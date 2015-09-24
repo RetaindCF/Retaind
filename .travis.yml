@@ -2,10 +2,10 @@ language: node_js
 node_js:
   - "0.12"
 
-
 env:
-  - APP_SECRET=123123123123
-  - PORT=8080
+  global:
+    - APP_SECRET=123123123123
+    - PORT=8080
 
 services:
   - mongodb

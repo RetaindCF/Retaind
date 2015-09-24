@@ -19,10 +19,11 @@ app.use('/api', usersRouter);
 
 // Do once a day
 setInterval(function() {
+  debugger;
   // Checks due date of ambitions and sends an email if they are over due
   dateCheck();
   console.log('daily emails sent');
-}, 1000 * 60 * 60 * 24);
+}, 1000 * 60 );
 
 
 app.listen(port, function() {
