@@ -27,20 +27,18 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
 });
 
 retaindRoute.post('/remove-user', jsonParser, eatAuth, function(req, res) {
+  debugger;
   User.find({ username: req.user.username }).remove().exec();
-  console.log(req.user.username);
   return res.end();
 });
 
 retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
   var dueDate = time.plusWeek();
   var input = {ambition: req.body.ambitions, dueDate: dueDate};
-  debugger;
   User.findOneAndUpdate({ username: req.user.username },
   { $push: {ambitions: input}},
   function(err, doc) {
     if (err) handleError(err);
-    debugger;
   });
   return res.end();
 });
