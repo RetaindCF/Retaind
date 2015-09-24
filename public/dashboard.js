@@ -2,11 +2,11 @@ $(document).ready(function(){
  var userLocalToken = localStorage.getItem("token");
  console.log(userLocalToken);
   var dItems = [];
-  var u = JSON.stringify({token: userLocalToken});
+  //var u = JSON.stringify({token: userLocalToken});
 $.ajax({
           type: "POST",
           url : "/api/user_token",
-          data: u,
+          data: userLocalToken,
           contentType: "application/json; charset=utf-8",
           dataType   : "json",
           success    : function(data){
