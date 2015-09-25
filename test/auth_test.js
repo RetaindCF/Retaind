@@ -64,8 +64,8 @@ describe('auth', function() {
 
     it('should be able to sign in', function(done) {
       chai.request('localhost:' + port)
-        .get('/api/signin')
-        .auth('test', 'foobar123')
+        .post('/api/login')
+        .send({username: 'test', password: 'foobar123'})
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body.token).to.have.length.above(0);
