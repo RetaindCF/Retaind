@@ -8,11 +8,7 @@ var addToDb = require(__dirname + '/../lib/add_to_db');
 var time = require(__dirname + '/../lib/time');
 var httpBasic = require(__dirname + '/../lib/http_basic');
 
-
-// Accepts a JSON object like: {pInfo: {fullName: 'Bert Mert',email: 'b.mert@pert.com',phone: '3603603600',location: 'Seattle, WA',timezone: 'PST (UTC−08:00)',currentLogin: 'the token?'}}
-// Stores JSON object in an array. can access with user.pInfo[0]
 retaindRoute.post('/personal', jsonParser, eatAuth, function(req, res) {
-  // Third parameter is the thing you want to push into the document array
   addToDb(req, res, {pInfo: req.body.pInfo});
 });
 
@@ -22,15 +18,6 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
     res.json(doc.pInfo);
   });
 });
-
-/* retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
-  var dueDate;
-  if(req.body.dueDate === 'day') dueDate = time.plusDay();
-  if(req.body.dueDate === 'week') dueDate = time.plusWeek();
-  if(req.body.dueDate === 'month') dueDate = time.plusMonth();
-  var input = {ambition: req.body.ambitions, dueDate: null};
-  addToDb(req, res, {ambitions: input});
-}); */
 
 retaindRoute.get('/ambition', jsonParser, eatAuth, function(req, res) {
   User.findOne({ username: req.user.username }, function(err, doc) {
@@ -64,10 +51,6 @@ retaindRoute.get('/LDR', jsonParser, eatAuth, function(req, res) {
     if (err) handleError(err);
     res.json(doc.LDR);
   });
-});
-
-retaindRoute.put('/change_remindr', jsonParser, function(req, res) {
-  console.log(req.body);
 });
 
 retaindRoute.get('/user_info', jsonParser, eatAuth, function(req, res) {
