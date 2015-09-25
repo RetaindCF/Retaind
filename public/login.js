@@ -1,10 +1,9 @@
 $(document).ready(function(){
   $( "#loginform").submit(function(e) {
     e.preventDefault();
-    localStorage.clear();
     var username = $("#username").val();
     var password = $("#password").val();
-    var localToken = JSON.parse(localStorage.getItem("token"));
+    var localToken = JSON.parse(sessionStorage.getItem("token"));
     var j = JSON.stringify({username: username, password: password});
     if(localToken){
     j = JSON.stringify({username: username, password: password, token: localToken});
@@ -17,8 +16,8 @@ $(document).ready(function(){
         contentType: "application/json; charset=utf-8",
         dataType   : "json",
         success: function(token){
-          localStorage.setItem("token", JSON.stringify(token));
-          localStorage.setItem("username", JSON.stringify(username));
+          sessionStorage.setItem("token", JSON.stringify(token));
+          sessionStorage.setItem("username", JSON.stringify(username));
           var dash = "http://" + window.location.host + "/dashboard.html";
           window.location.replace(dash);
         }
