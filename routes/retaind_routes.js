@@ -23,6 +23,22 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
   });
 });
 
+/* retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
+  var dueDate;
+  if(req.body.dueDate === 'day') dueDate = time.plusDay();
+  if(req.body.dueDate === 'week') dueDate = time.plusWeek();
+  if(req.body.dueDate === 'month') dueDate = time.plusMonth();
+  var input = {ambition: req.body.ambitions, dueDate: null};
+  addToDb(req, res, {ambitions: input});
+}); */
+
+retaindRoute.get('/ambition', jsonParser, eatAuth, function(req, res) {
+  User.findOne({ username: req.user.username }, function(err, doc) {
+    if (err) handleError(err);
+    res.json(doc.ambitions);
+  });
+});
+
 retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
   var dueDate;
   if(req.body.dueDate === 'day') dueDate = time.plusDay();
@@ -30,13 +46,6 @@ retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
   if(req.body.dueDate === 'month') dueDate = time.plusMonth();
   var input = {ambition: req.body.ambitions, dueDate: dueDate};
   addToDb(req, res, {ambitions: input});
-});
-
-retaindRoute.get('/ambition', jsonParser, eatAuth, function(req, res) {
-  User.findOne({ username: req.user.username }, function(err, doc) {
-    if (err) handleError(err);
-    res.json(doc.ambitions);
-  });
 });
 
 retaindRoute.post('/dashload', jsonParser, eatAuth, function(req, res) {

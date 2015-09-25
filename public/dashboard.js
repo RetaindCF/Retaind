@@ -4,8 +4,7 @@ var noteCount = 0;
 UserName: <input type="text" name="user" value="test" /> <br/>
 Password: <input type="password" name="password" value="test"/> <br/>
 </form> */
-
-
+var remtime = "day";
 function noteMake2(dborform, color) {
   var setColor = color || "yellow";
   var noteId = "note" + noteCount;
@@ -22,8 +21,8 @@ function noteMake2(dborform, color) {
   $("<button>").text("week").appendTo("#" + noteFormId).addClass("remtime");
   $("<button>").text("month").appendTo("#" + noteFormId).addClass("remtime");
   $(".remtime").on("click", function(){
-      var remtime = $(this).text();
-      var send = JSON.stringify({dueDate: remtime});
+      remtime = $(this).text();
+     /* var send = JSON.stringify({dueDate: remtime});
           $.ajax({
           type: "POST",
           url : "/api/due",
@@ -33,8 +32,8 @@ function noteMake2(dborform, color) {
           success    : function(data){
             $(".remtime").hide();
           }
-      });
-  })
+      }); */
+  });
    noteCount++;
 }
 
@@ -105,8 +104,9 @@ function noteMake2(dborform, color) {
       $(this).find("h5").text(activity);
       console.log(activity);
       var token = JSON.parse(localStorage.getItem("token")).token;
-      debugger;
-      var j = JSON.stringify({username: username, token: token, ambitions: activity});
+      username = JSON.parse(localStorage.getItem("username"));
+      var j = JSON.stringify({username: username, token: token, ambitions: activity, dueDate: remtime});
+       debugger;
       //console.log(j);
       $.ajax({
           type: "POST",
