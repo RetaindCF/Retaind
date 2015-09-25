@@ -1,5 +1,9 @@
 
+h5 {
+  font-size: 50%;
+}
 .box {
+  text-align: center;
   color: #333;
   position: relative;
   width: 300px;

@@ -1,13 +1,24 @@
 $(document).ready(function(){
   var j;
-  if(localStorage.getItem("token")){
+  $("<button>").text("Logout").addClass("logout").appendTo("body").hide();
+  $(".logout").on("click", function(){
+    localStorage.clear();
+    window.location.reload(true);
+  })
+  $("<button>").addClass("newremind").text("new reminder").appendTo("body").hide();
+    $(".newremind").on("click", function() {
+      noteMake2(null, "blue");
+      boxSubmitUpdate();
+    });
+
+  /*if(localStorage.getItem("token")){
+    $(".logout").show();
+    $(".newremind").show()
     $('#loginform').hide();
     $('.pagetitle').text("Dashboard");
    var tok = JSON.parse(localStorage.getItem("token")).token;
    var usr = JSON.parse(localStorage.getItem("username"));
-   debugger;
     j = JSON.stringify({username: usr, token: tok});
-    debugger;
     $.ajax({
       type: "POST",
       url : "/api/dashload",
@@ -21,18 +32,14 @@ $(document).ready(function(){
       curAmbs.forEach(function(item){
         noteMake2(item, "yellow");
         boxSubmitUpdate();
-        $("<button>").addClass("newremind").text("new reminder").appendTo("body");
-
-        $(".newremind").on("click", function() {
-          noteMake2(null, "blue");
-          boxSubmitUpdate();
-        });
       });
     }
   });
 
-  }
+  }*/
   $( "#loginform").submit(function(e) {
+    $('#loginform').hide();
+    $('.pagetitle').text("Dashboard");
     e.preventDefault();
     var username = $("#username").val();
     var password = $("#password").val();
@@ -60,17 +67,13 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType   : "json",
             success    : function(data){
+               $(".newremind").show();
+               $(".logout").show();
               console.log("data", data);
               curAmbs = data;
               curAmbs.forEach(function(item){
                 noteMake2(item, "yellow");
                 boxSubmitUpdate();
-                $("<button>").addClass("newremind").text("new reminder").appendTo("body");
-
-                $(".newremind").on("click", function() {
-                  noteMake2(null, "blue");
-                  boxSubmitUpdate();
-                });
               });
             }
           });

@@ -10,14 +10,31 @@ function noteMake2(dborform, color) {
   var setColor = color || "yellow";
   var noteId = "note" + noteCount;
   var noteFormId = "noteform" + noteCount;
-  dborform = dborform || {activity: "A new ambition...", dueDate: "set a due date"};
+  dborform = dborform || {};
   $("<div>").attr("id", "note" + noteCount).addClass("box").addClass(setColor).addClass("quote-container")
   .appendTo("main");
-  $("<h2>").appendTo("#noteId");
+  $("<h5>").text("Aspiration").appendTo("#" + noteId);
   $("<form>").addClass("activity").attr("id", "noteform" + noteCount).appendTo("#" + noteId);
   $('<input type="text">').val(dborform.ambition || "Enter Text")
   .addClass(color).addClass("activity").appendTo("#" + noteFormId);
   $('<input type="submit">').val("Submit Changes").appendTo("#" + noteFormId);
+  $("<button>").text("day").appendTo("#" + noteFormId).addClass("remtime");
+  $("<button>").text("week").appendTo("#" + noteFormId).addClass("remtime");
+  $("<button>").text("month").appendTo("#" + noteFormId).addClass("remtime");
+  $(".remtime").on("click", function(){
+      var remtime = $(this).text();
+      var send = JSON.stringify({dueDate: remtime});
+          $.ajax({
+          type: "POST",
+          url : "/api/due",
+          data: send,
+          contentType: "application/json; charset=utf-8",
+          dataType   : "json",
+          success    : function(data){
+            $(".remtime").hide();
+          }
+      });
+  })
    noteCount++;
 }
 
@@ -66,12 +83,7 @@ function noteMake2(dborform, color) {
     }
   });
  */
-  $("<button>").addClass("newremind").text("new reminder").appendTo("body");
 
-  $(".newremind").on("click", function() {
-    noteMake2(null, "blue");
-    boxSubmitUpdate();
-  });
    /* $("<div>").attr("id", "note" + noteCount).addClass("box").addClass("blue").addClass("quote-container").appendTo("main");
     $("<button>").addClass("editremind").text("edit").appendTo(".box:last");
     $("<button>").text("cancel").addClass("cancel").appendTo(".box:last").hide();
@@ -90,6 +102,7 @@ function noteMake2(dborform, color) {
     $( ".box").submit(function(e) {
       e.preventDefault();
       var activity = $(this).find("input").val();
+      $(this).find("h5").text(activity);
       console.log(activity);
       var token = JSON.parse(localStorage.getItem("token")).token;
       debugger;
@@ -101,8 +114,8 @@ function noteMake2(dborform, color) {
           data: j,
           contentType: "application/json; charset=utf-8",
           dataType   : "json",
-          success    : function(){
-            console.log("edit data sent");
+          success    : function(data){
+            console.log(data);
           }
       });
     });
