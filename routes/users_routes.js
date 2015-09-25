@@ -8,7 +8,7 @@ var path = require('path');
 var usersRouter = module.exports = exports = express.Router();
 var EventEmitter = require('events');
 var ee = new EventEmitter();
-var mailGun = require(__dirname + '/../mailgun');
+var mailGun = require(__dirname + '/../lib/mailgun');
 
 
 usersRouter.post('/user_token', jsonParser, function(req,res) {
@@ -30,7 +30,7 @@ usersRouter.post('/token', jsonParser, function(req,res) {
 usersRouter.post('/login', jsonParser, function(req, res) {
     User.findOne({'username': req.body.username}, function(err, user) {
       if (err) return handleError(err, res);
-      
+
       if(!user) {
         var newUser = new User();
         newUser.basic.username = req.body.username;
@@ -39,11 +39,9 @@ usersRouter.post('/login', jsonParser, function(req, res) {
           ee.emit('generateHash', res, err, newUser);
         });
     } else {
-      
       ee.emit('compareHash', req, res, user);
     }
   });
-  
 });
 
 ee.on('generateHash', function(res, err, newUser) {
@@ -62,7 +60,6 @@ ee.on('compareHash', function(req, res, user) {
 
     if (err) return handleError(err, res);
     if(!hashRes) {
-      console.log('Hash result missing for: ' +req.body.username);
       return res.status(401).json({msg: 'could not authenticate'});
     }
     ee.emit('generateToken', res, user);
