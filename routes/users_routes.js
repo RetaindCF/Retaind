@@ -24,21 +24,26 @@ usersRouter.post('/token', jsonParser, function(req,res) {
   User.findOne({"basic.username": req.body.username}, function(err, obj) {
     console.log(obj);
     res.json(obj);
-  })
+  });
 });
 
 usersRouter.post('/login', jsonParser, function(req, res) {
-  User.findOne({'username': req.body.user}, function(err, user){
-    if(user){
+    User.findOne({'username': req.body.username}, function(err, user) {
+      if (err) return handleError(err, res);
+      
+      if(!user) {
+        var newUser = new User();
+        newUser.basic.username = req.body.username;
+        newUser.username = req.body.username;
+        newUser.generateHash(req.body.password, function(err, hash){
+          ee.emit('generateHash', res, err, newUser);
+        });
+    } else {
+      
       ee.emit('compareHash', req, res, user);
     }
-    var newUser = new User();
-    newUser.basic.username = req.body.username;
-    newUser.username = req.body.username;
-    newUser.generateHash(req.body.password, function(err, hash){
-      ee.emit('generateHash', res, err, newUser);
-    });
   });
+  
 });
 
 ee.on('generateHash', function(res, err, newUser) {
@@ -52,19 +57,9 @@ ee.on('generateHash', function(res, err, newUser) {
   });
 });
 
-usersRouter.get('/signin', httpBasic, function(req, res) {
-  User.findOne({'basic.username': req.body.username}, function(err, user) {
-    if (err) return handleError(err, res);
-    if(!user) {
-      console.log('Could not find user in db: ' + req.body.username);
-      return res.status(401).json({msg: 'could not authenticate'});
-    }
-    ee.emit('compareHash', req, res, user);
-  });
-});
-
 ee.on('compareHash', function(req, res, user) {
   user.compareHash(req.body.password, function(err, hashRes) {
+
     if (err) return handleError(err, res);
     if(!hashRes) {
       console.log('Hash result missing for: ' +req.body.username);

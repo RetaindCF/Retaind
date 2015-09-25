@@ -17,6 +17,7 @@ describe('CRUD: read', function() {
   });
 
   var readUser;
+  
   before(function(done) {
     readUser = new User();
     readUser.username = 'readUser';
@@ -51,11 +52,11 @@ describe('CRUD: read', function() {
   it('should read pInfo', function(done) {
 
     var token = this.token;
+
     chai.request("localhost:" + port)
         .get('/api/personal')
         .set('token', token)
         .end(function(req, res) {
-          
           User.findOne({username: 'readUser'}, function(err, user) {
             expect(user.pInfo[0].fullName).to.eql('Kurt Cobain');
             expect(user.pInfo[0].email).to.eql('b.mert@pert.com');
@@ -73,8 +74,7 @@ describe('CRUD: read', function() {
     chai.request("localhost:" + port)
       .get('/api/ambition')
       .set('token', token)
-      .end(function(req, res) {
-        
+      .end(function(req, res) { 
         User.findOne({username: 'readUser'}, function(err, user) {
           expect(user.ambitions[0].ambition).to.eql('learn guitar');
           done();
@@ -88,7 +88,6 @@ describe('CRUD: read', function() {
       .get('/api/LDR')
       .set('token', token)
       .end(function(req, res) {
-        
         User.findOne({username: 'readUser'}, function(err, user) {
           expect(user.LDR[0].relType).to.eql('freind');
           expect(user.LDR[0].conFreq).to.eql('weekly');
@@ -96,6 +95,4 @@ describe('CRUD: read', function() {
         });
       });
   });
-
-
 });

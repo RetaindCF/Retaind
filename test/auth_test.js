@@ -62,6 +62,16 @@ describe('auth', function() {
       }.bind(this));
     });
 
+    it('should be able to sign in', function(done) {
+      chai.request('localhost:' + port)
+        .post('/api/login')
+        .send({username: 'test', password: 'foobar123'})
+        .end(function(err, res) {
+          expect(err).to.eql(null);
+          expect(res.body.token).to.have.length.above(0);
+          done();
+        });
+    });
     it('should be able to authenticat with eat auth', function(done) {
       var token = this.token;
       var req = {
