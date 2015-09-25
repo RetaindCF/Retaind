@@ -20,7 +20,8 @@ $(document).ready(function(){
           sessionStorage.setItem("username", JSON.stringify(username));
           var dash = "http://" + window.location.host + "/dashboard.html";
           alert("What is happening");
-          window.location.replace(dash);
+          window.location.href = dash;
+          window.reload();
         }
     });
   });
