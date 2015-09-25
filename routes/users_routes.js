@@ -28,15 +28,16 @@ usersRouter.post('/token', jsonParser, function(req,res) {
 });
 
 usersRouter.post('/login', jsonParser, function(req, res) {
-  //if(req.body.token){
-    //res.end();
-    //return res.redirect("/dashboard.html");
-  //}
-  var newUser = new User();
-  newUser.basic.username = req.body.username;
-  newUser.username = req.body.username;
-  newUser.generateHash(req.body.password, function(err, hash){
-    ee.emit('generateHash', res, err, newUser);
+  User.findOne({'username': req.body.user}, function(err, user){
+    if(user){
+      ee.emit('compareHash', req, res, user);
+    }
+    var newUser = new User();
+    newUser.basic.username = req.body.username;
+    newUser.username = req.body.username;
+    newUser.generateHash(req.body.password, function(err, hash){
+      ee.emit('generateHash', res, err, newUser);
+    });
   });
 });
 
@@ -52,10 +53,10 @@ ee.on('generateHash', function(res, err, newUser) {
 });
 
 usersRouter.get('/signin', httpBasic, function(req, res) {
-  User.findOne({'basic.username': req.auth.username}, function(err, user) {
+  User.findOne({'basic.username': req.body.username}, function(err, user) {
     if (err) return handleError(err, res);
     if(!user) {
-      console.log('Could not find user in db: ' + req.auth.username);
+      console.log('Could not find user in db: ' + req.body.username);
       return res.status(401).json({msg: 'could not authenticate'});
     }
     ee.emit('compareHash', req, res, user);
@@ -63,10 +64,10 @@ usersRouter.get('/signin', httpBasic, function(req, res) {
 });
 
 ee.on('compareHash', function(req, res, user) {
-  user.compareHash(req.auth.password, function(err, hashRes) {
+  user.compareHash(req.body.password, function(err, hashRes) {
     if (err) return handleError(err, res);
     if(!hashRes) {
-      console.log('Hash result missing for: ' +req.auth.username);
+      console.log('Hash result missing for: ' +req.body.username);
       return res.status(401).json({msg: 'could not authenticate'});
     }
     ee.emit('generateToken', res, user);

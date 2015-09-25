@@ -21,7 +21,7 @@ function noteMake2(dborform, color) {
    noteCount++;
 }
 
-function noteMake(dborform, color){
+/* function noteMake(dborform, color){
   color = color || "yellow";
   dborform = dborform || {activity: "A new ambition...", dueDate: "set a due date"};
   $("<div>").attr("id", "note" + noteCount).addClass("box").addClass(color).addClass("quote-container").appendTo("main");
@@ -39,14 +39,11 @@ function noteMake(dborform, color){
   $remind.append('<p class="lastlogin"></p>');
   $(".lastlogin").text(dborform.dueDate);
   $(".activity").attr('disabled', true);
-}
+} */
 
-
-$(document).ready(function() {
+/* $(document).ready(function() {
  var userLocalToken = localStorage.getItem("token");
- console.log(userLocalToken);
  var token = JSON.parse(userLocalToken).token;
- console.log("parsed token", token);
   var dItems = [];
   var userLocalName = localStorage.getItem("username");
   var username = JSON.parse(userLocalName).username;
@@ -68,7 +65,7 @@ $(document).ready(function() {
       });
     }
   });
-
+ */
   $("<button>").addClass("newremind").text("new reminder").appendTo("body");
 
   $(".newremind").on("click", function() {
@@ -94,6 +91,8 @@ $(document).ready(function() {
       e.preventDefault();
       var activity = $(this).find("input").val();
       console.log(activity);
+      var token = JSON.parse(localStorage.getItem("token")).token;
+      debugger;
       var j = JSON.stringify({username: username, token: token, ambitions: activity});
       //console.log(j);
       $.ajax({
@@ -109,4 +108,4 @@ $(document).ready(function() {
     });
   }
 
-}); //document ready end
+//}); //document ready end
