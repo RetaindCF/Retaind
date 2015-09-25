@@ -71,8 +71,7 @@ describe('CRUD: create', function() {
       var token = this.token;
       var ambitionJson = {ambitions: 'learn guitar'
       };
-      
-      
+          
       chai.request("localhost:" + port)
         .post('/api/ambition')
         .set('token', token)
@@ -107,7 +106,6 @@ describe('CRUD: create', function() {
             done();
           });
         });
-    });
-    
+    });    
   });
 });
