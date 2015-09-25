@@ -22,14 +22,11 @@ retaindRoute.get('/personal', jsonParser, eatAuth, function(req, res) {
   });
 });
 
-retaindRoute.post('/remove-user', jsonParser, eatAuth, function(req, res) {
-  debugger;
-  User.find({ username: req.user.username }).remove().exec();
-  return res.end();
-});
-
 retaindRoute.post('/ambition', jsonParser, eatAuth, function(req, res) {
-  var dueDate = time.plusWeek();
+  var dueDate;
+  if(req.body.dueDate === 'day') dueDate = time.plusDay();
+  if(req.body.dueDate === 'week') dueDate = time.plusWeek();
+  if(req.body.dueDate === 'month') dueDate = time.plusMonth();
   var input = {ambition: req.body.ambitions, dueDate: dueDate};
   addToDb(req, res, {ambitions: input});
 });
