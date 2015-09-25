@@ -43,14 +43,14 @@ function noteMake(dborform, color){
 
 
 $(document).ready(function() {
- var usersessionToken = sessionStorage.getItem("token");
- console.log(usersessionToken);
- var token = JSON.parse(usersessionToken);
+ var userLocalToken = localStorage.getItem("token");
+ console.log(userLocalToken);
+ var token = JSON.parse(userLocalToken).token;
  console.log("parsed token", token);
   var dItems = [];
-  var usersessionName = sessionStorage.getItem("username");
-  var username = JSON.parse(usersessionName);
-  //var u = JSON.stringify({token: usersessionToken});
+  var userLocalName = localStorage.getItem("username");
+  var username = JSON.parse(userLocalName).username;
+  //var u = JSON.stringify({token: userLocalToken});
   var getAmb = JSON.stringify({username: username, token: token});
   var curAmbs;
   $.ajax({
