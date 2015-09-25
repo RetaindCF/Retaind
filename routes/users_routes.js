@@ -28,10 +28,10 @@ usersRouter.post('/token', jsonParser, function(req,res) {
 });
 
 usersRouter.post('/login', jsonParser, function(req, res) {
-  if(req.body.token){
+  //if(req.body.token){
     //res.end();
-    return res.redirect("/dashboard.html");
-  }
+    //return res.redirect("/dashboard.html");
+  //}
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;

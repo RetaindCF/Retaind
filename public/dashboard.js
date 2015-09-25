@@ -45,7 +45,7 @@ function noteMake(dborform, color){
 $(document).ready(function() {
  var userLocalToken = localStorage.getItem("token");
  console.log(userLocalToken);
- var token = JSON.parse(userLocalToken).token;
+ var token = JSON.parse(userLocalToken);
  console.log("parsed token", token);
   var dItems = [];
   var userLocalName = localStorage.getItem("username");

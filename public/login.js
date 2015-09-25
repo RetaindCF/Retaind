@@ -1,7 +1,7 @@
 $(document).ready(function(){
-      localStorage.clear();
   $( "#loginform").submit(function(e) {
     e.preventDefault();
+    localStorage.clear();
     var username = $("#username").val();
     var password = $("#password").val();
     var localToken = JSON.parse(localStorage.getItem("token"));
