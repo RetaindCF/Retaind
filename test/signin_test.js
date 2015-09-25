@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var User = require(__dirname + "/../models/user.js");
 
 chai.use(chaiHttp);
-process.env.MONGO_URL = 'mongodb://localhost/db';
+process.env.MONGO_URL = 'mongodb://localhost/userdb';
 
 require(__dirname + "/../server.js");
 

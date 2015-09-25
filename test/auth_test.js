@@ -3,7 +3,7 @@ var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
 var expect = chai.expect;
 var port = process.env.PORT || 3000; //set to 3000 for now.
-process.env.MONGO_URL = 'mongodb://localhost/db';
+process.env.MONGO_URL = 'mongodb://localhost/userdb';
 chai.use(chaiHttp);
 
 require(__dirname + "/../server");

@@ -3,7 +3,7 @@
 // var chaiHttp = require('chai-http');
 // var mongoose = require('mongoose');
 // chai.use(chaiHttp);
-// process.env.MONGO_URL = 'mongodb://localhost/db';
+// process.env.MONGO_URL = 'mongodb://localhost/userdb';
 // var port = process.env.PORT || 3000; //set to 3000 for now.
 // var User = require(__dirname + '/../models/user');
 
@@ -51,7 +51,6 @@
 //           .end(function(req, res) {
 //             User.find({username: 'existtest'}, function(err, docs) {
 //               debugger;
-//               console.log(docs);
 //               expect().to.eql([]);
 //               done();
 //             });
