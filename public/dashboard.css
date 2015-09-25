@@ -1,11 +1,17 @@
-
+body {
+  background: url("img/cork.jpg");
+  font-family: "Comic Sans MS";
+}
+h5 {
+  font-size: 50%;
+}
 .box {
+  text-align: center;
   color: #333;
   position: relative;
   width: 300px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Satisfy;
   font-size: 30px;
   box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
   display: inline-block;

@@ -4,24 +4,40 @@ var noteCount = 0;
 UserName: <input type="text" name="user" value="test" /> <br/>
 Password: <input type="password" name="password" value="test"/> <br/>
 </form> */
-
-
+var remtime = "day";
 function noteMake2(dborform, color) {
   var setColor = color || "yellow";
   var noteId = "note" + noteCount;
   var noteFormId = "noteform" + noteCount;
-  dborform = dborform || {activity: "A new ambition...", dueDate: "set a due date"};
+  dborform = dborform || {};
   $("<div>").attr("id", "note" + noteCount).addClass("box").addClass(setColor).addClass("quote-container")
   .appendTo("main");
-  $("<h2>").appendTo("#noteId");
+  $("<h5>").text("Aspiration").appendTo("#" + noteId);
   $("<form>").addClass("activity").attr("id", "noteform" + noteCount).appendTo("#" + noteId);
   $('<input type="text">').val(dborform.ambition || "Enter Text")
   .addClass(color).addClass("activity").appendTo("#" + noteFormId);
   $('<input type="submit">').val("Submit Changes").appendTo("#" + noteFormId);
+  $("<button>").text("day").appendTo("#" + noteFormId).addClass("remtime");
+  $("<button>").text("week").appendTo("#" + noteFormId).addClass("remtime");
+  $("<button>").text("month").appendTo("#" + noteFormId).addClass("remtime");
+  $(".remtime").on("click", function(){
+      remtime = $(this).text();
+     /* var send = JSON.stringify({dueDate: remtime});
+          $.ajax({
+          type: "POST",
+          url : "/api/due",
+          data: send,
+          contentType: "application/json; charset=utf-8",
+          dataType   : "json",
+          success    : function(data){
+            $(".remtime").hide();
+          }
+      }); */
+  });
    noteCount++;
 }
 
-function noteMake(dborform, color){
+/* function noteMake(dborform, color){
   color = color || "yellow";
   dborform = dborform || {activity: "A new ambition...", dueDate: "set a due date"};
   $("<div>").attr("id", "note" + noteCount).addClass("box").addClass(color).addClass("quote-container").appendTo("main");
@@ -39,14 +55,11 @@ function noteMake(dborform, color){
   $remind.append('<p class="lastlogin"></p>');
   $(".lastlogin").text(dborform.dueDate);
   $(".activity").attr('disabled', true);
-}
+} */
 
-
-$(document).ready(function() {
+/* $(document).ready(function() {
  var userLocalToken = localStorage.getItem("token");
- console.log(userLocalToken);
  var token = JSON.parse(userLocalToken).token;
- console.log("parsed token", token);
   var dItems = [];
   var userLocalName = localStorage.getItem("username");
   var username = JSON.parse(userLocalName).username;
@@ -68,13 +81,8 @@ $(document).ready(function() {
       });
     }
   });
+ */
 
-  $("<button>").addClass("newremind").text("new reminder").appendTo("body");
-
-  $(".newremind").on("click", function() {
-    noteMake2(null, "blue");
-    boxSubmitUpdate();
-  });
    /* $("<div>").attr("id", "note" + noteCount).addClass("box").addClass("blue").addClass("quote-container").appendTo("main");
     $("<button>").addClass("editremind").text("edit").appendTo(".box:last");
     $("<button>").text("cancel").addClass("cancel").appendTo(".box:last").hide();
@@ -93,8 +101,12 @@ $(document).ready(function() {
     $( ".box").submit(function(e) {
       e.preventDefault();
       var activity = $(this).find("input").val();
+      $(this).find("h5").text(activity);
       console.log(activity);
-      var j = JSON.stringify({username: username, token: token, ambitions: activity});
+      var token = JSON.parse(localStorage.getItem("token")).token;
+      username = JSON.parse(localStorage.getItem("username"));
+      var j = JSON.stringify({username: username, token: token, ambitions: activity, dueDate: remtime});
+       debugger;
       //console.log(j);
       $.ajax({
           type: "POST",
@@ -102,11 +114,11 @@ $(document).ready(function() {
           data: j,
           contentType: "application/json; charset=utf-8",
           dataType   : "json",
-          success    : function(){
-            console.log("edit data sent");
+          success    : function(data){
+            console.log(data);
           }
       });
     });
   }
 
-}); //document ready end
+//}); //document ready end

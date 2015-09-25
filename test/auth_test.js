@@ -72,7 +72,6 @@ describe('auth', function() {
           done();
         });
     });
-
     it('should be able to authenticat with eat auth', function(done) {
       var token = this.token;
       var req = {

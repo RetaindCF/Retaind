@@ -62,7 +62,7 @@ ee.on('compareHash', function(req, res, user) {
 
     if (err) return handleError(err, res);
     if(!hashRes) {
-      console.log('Hash result missing for: ' +req.auth.username);
+      console.log('Hash result missing for: ' +req.body.username);
       return res.status(401).json({msg: 'could not authenticate'});
     }
     ee.emit('generateToken', res, user);
