@@ -19,15 +19,13 @@
     "node",
     "HTTP"
   ],
-  "author": "eluetkehans@gmail.com",
+  "author": "Erik Luetkehans",
   "contributors": [
     {
-      "name": "David Sheffield",
-      "email": "david.sheffield21@gmail.com"
+      "name": "David Sheffield"
     },
     {
-      "name": "David Earl Duncan",
-      "email": "Duncan.David@gmail.com"
+      "name": "David Earl Duncan"
     }
   ],
   "license": "MIT",
